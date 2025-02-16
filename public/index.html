@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="waiting-room">
+        <h1>Welcome to the Quiz</h1>
+        <input type="text" id="name-input" placeholder="Enter your name" />
+        <input type="text" id="room-input" placeholder="Enter room name" />
+        <button id="join-btn">Join</button>
+        <h2>Players:</h2>
+        <ul id="player-list"></ul>
+        <input type="file" id="quiz-file" style="display:none;" />
+        <input type="number" id="timer-input" style="display:none;" placeholder="Enter timer per question in seconds" />
+        <button id="upload-btn" style="display:none;">Upload Quiz</button>
+        <button id="start-btn" style="display:none;">Start Quiz</button>
+    </div>
+    
+    <div id="quiz-room" style="display:none;">
+        <h1 id="question"></h1>
+        <div id="options"></div>
+        <div id="timer-display"></div> 
+        <canvas id="voteChart"></canvas>
+        <button id="submit-btn" style="display:none;">Submit Vote</button>
+        <button id="next-btn" style="display:none;">Next Question</button>
+    </div>
+
+    <div id="poll-room" style="display:none;">
+        <h1 id="poll-question"></h1>
+        <canvas id="pollChart"></canvas>
+        <button id="next-question-btn" style="display:none;">Next Question</button>
+    </div>
+
+    <div id="thankyou-room" style="display:none;">
+        <h1>Thank you for joining the quiz!</h1>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

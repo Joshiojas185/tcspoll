@@ -1,0 +1,69 @@
+body {
+  background-color: #0B2239;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+#waiting-room {
+  background-color: #8000ff; 
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+input[type="text"], input[type="number"], input[type="file"] {
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+button {
+  background-color: olive;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #556B2F;
+}
+
+button:active {
+  background-color: #6B8E23;
+}
+
+#options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.option-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid white;
+
+  border-radius: 5px;
+  padding: 15px;
+  margin: 5px;
+  width: 80%; 
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.option-button:hover {
+  background-color: white;
+  color: #0B2239;
+  transform: scale(1.05);
+}
+
+#timer-display {
+  font-size: 24px;
+  margin: 20px 0;
+}
