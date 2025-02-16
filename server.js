@@ -110,4 +110,12 @@ io.on('connection', (socket) => {
 });
 
 // server.listen(5000, () => console.log('Server running on http://localhost:5000'));
-server.listen(5000, '192.168.29.153', () => console.log('Server running on http://192.168.29.153:5000'));
+const PORT = process.env.PORT || 5000;
+const HOST = '0.0.0.0'; // Change from '192.168.29.153' to '0.0.0.0'
+
+server.listen(PORT, HOST, () => {
+  console.log(`Server running on ${HOST}:${PORT}`);
+});
+
+
+// server.listen(5000, '192.168.29.153', () => console.log('Server running on http://192.168.29.153:5000'));
