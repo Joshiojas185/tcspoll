@@ -1,4 +1,4 @@
-const socket = io('http://192.168.29.153:5000');
+const socket = io('wss://tcpoll.onrender.com');
 
 const nameInput = document.getElementById('name-input');
 const roomInput = document.getElementById('room-input');
