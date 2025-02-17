@@ -110,8 +110,14 @@ function displayQuestion(question) {
     if (isHost) nextBtn.style.display = 'block';
 }
 
+// nextBtn.addEventListener('click', () => {
+//     socket.emit('nextQuestion', roomInput.value.trim());
+// });
+
 nextBtn.addEventListener('click', () => {
     socket.emit('nextQuestion', roomInput.value.trim());
+    timerDisplay.style.display = 'block'; // Show the timer when moving to the next question
+    timerDisplay.innerText = `Time Left: ${timeLeft}s`; // Reset the timer display
 });
 
 socket.on('nextQuestion', (question) => {
@@ -139,6 +145,11 @@ function displayPoll(voteData) {
     }
 }
 
+socket.on('timerEnded', () => {
+    timerDisplay.innerText = ''; // Hide the timer when time runs out
+    timerDisplay.style.display = 'none'; // Optionally hide the timer display element
+});
+
 socket.on('updateVotes', (voteData) => {
     if (!voteChart) {
         voteChart = new Chart(ctx, {
@@ -163,6 +174,9 @@ socket.on('updateTimer', (timeLeft) => {
     // if (timeLeft <= 5) {
     //     timerDisplay.style.color = 'red'; // Change color to red when time is low
     // }
+    if (timeLeft <= 1) {
+        timerDisplay.innerText = ''; // Hide the timer when time runs out
+    }
 });
 
 socket.on('quizEnded', () => {

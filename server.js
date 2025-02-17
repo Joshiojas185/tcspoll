@@ -61,17 +61,33 @@ io.on('connection', (socket) => {
         }
     });
 
+    // function startTimer(roomName, duration) {
+    //     let timeLeft = duration;
+    //     rooms[roomName].votingAllowed = true; // Allow voting initially
+    //     rooms[roomName].timerInterval = setInterval(() => {
+    //         if (timeLeft <= 0) {
+    //             clearInterval(rooms[roomName].timerInterval);
+    //             rooms[roomName].votingAllowed = false; // Disallow voting after timer ends
+    //             io.to(roomName).emit('showPoll', rooms[roomName].votes[rooms[roomName].currentQuestionIndex]);
+    //         } else {
+    //             io.to(roomName).emit('updateTimer', timeLeft); // Send the remaining time to clients
+    //             timeLeft--;
+    //         }
+    //     }, 1000);
+    // }
+
     function startTimer(roomName, duration) {
-        let timeLeft = duration;
+        timeLeft = duration; // Set the global timeLeft
         rooms[roomName].votingAllowed = true; // Allow voting initially
         rooms[roomName].timerInterval = setInterval(() => {
             if (timeLeft <= 0) {
                 clearInterval(rooms[roomName].timerInterval);
                 rooms[roomName].votingAllowed = false; // Disallow voting after timer ends
                 io.to(roomName).emit('showPoll', rooms[roomName].votes[rooms[roomName].currentQuestionIndex]);
+                io.to(roomName).emit('timerEnded'); // Emit event to notify timer ended
             } else {
                 io.to(roomName).emit('updateTimer', timeLeft); // Send the remaining time to clients
-                timeLeft--;
+                timeLeft--; // Decrement timeLeft
             }
         }, 1000);
     }
