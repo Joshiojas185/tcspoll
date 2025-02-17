@@ -16,7 +16,7 @@ const thankyouRoom = document.getElementById('thankyou-room');
 const questionDisplay = document.getElementById('question');
 const optionsContainer = document.getElementById('options');
 const nextBtn = document.getElementById('next-btn');
-const submitBtn = document.getElementById('submit-btn');
+// const submitBtn = document.getElementById('submit-btn');
 const timerDisplay = document.getElementById('timer-display');
 const ctx = document.getElementById('voteChart').getContext('2d');
 const pollCtx = document.getElementById('pollChart').getContext('2d');
@@ -101,12 +101,12 @@ function displayQuestion(question) {
             if (!voted) {
                 socket.emit('vote', roomInput.value.trim(), String.fromCharCode(65 + index));
                 voted = true;
-                submitBtn.style.display = 'none';
+                // submitBtn.style.display = 'none';
             }
         };
         optionsContainer.appendChild(btn);
     });
-    submitBtn.style.display = 'block';
+    // submitBtn.style.display = 'block';
     if (isHost) nextBtn.style.display = 'block';
 }
 
@@ -117,7 +117,7 @@ nextBtn.addEventListener('click', () => {
 socket.on('nextQuestion', (question) => {
     displayQuestion(question);
     voted = false;
-    submitBtn.style.display = 'block';
+    // submitBtn.style.display = 'block';
 });
 
 function displayPoll(voteData) {
