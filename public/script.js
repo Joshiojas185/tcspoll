@@ -160,9 +160,9 @@ socket.on('updateVotes', (voteData) => {
 
 socket.on('updateTimer', (timeLeft) => {
     timerDisplay.innerText = `Time Left: ${timeLeft}s`; // Update the timer display
-    if (timeLeft <= 5) {
-        timerDisplay.style.color = 'red'; // Change color to red when time is low
-    }
+    // if (timeLeft <= 5) {
+    //     timerDisplay.style.color = 'red'; // Change color to red when time is low
+    // }
 });
 
 socket.on('quizEnded', () => {
