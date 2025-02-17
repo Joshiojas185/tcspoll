@@ -174,7 +174,7 @@ socket.on('updateTimer', (timeLeft) => {
     // if (timeLeft <= 5) {
     //     timerDisplay.style.color = 'red'; // Change color to red when time is low
     // }
-    if (timeLeft <= 1) {
+    if (timeLeft <= 0) {
         timerDisplay.innerText = ''; // Hide the timer when time runs out
     }
 });
