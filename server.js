@@ -154,7 +154,31 @@ app.use(express.static('public'));
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 
-    // Handle joining a room
+    // Handle joining a room - 1
+    // socket.on('joinRoom', (roomName, playerName) => {
+    //     socket.join(roomName);
+    //     if (!rooms[roomName]) {
+    //         rooms[roomName] = {
+    //             players: [],
+    //             host: socket.id,
+    //             quizQuestions: [],
+    //             currentQuestionIndex: 0,
+    //             quizStarted: false,
+    //             votes: [],
+    //             currentQuestionTime: 15,
+    //             timerInterval: null,
+    //             timerPerQuestion: 15,
+    //             votingAllowed: false, // Track if voting is allowed
+    //         };
+    //     }
+    //     rooms[roomName].players.push({ id: socket.id, name: playerName });
+    //     io.to(roomName).emit('updatePlayers', rooms[roomName].players);
+    //     if (socket.id === rooms[roomName].host) {
+    //         io.to(socket.id).emit('hostAssigned');
+    //     }
+    // });
+
+
     socket.on('joinRoom', (roomName, playerName) => {
         socket.join(roomName);
         if (!rooms[roomName]) {
@@ -168,11 +192,18 @@ io.on('connection', (socket) => {
                 currentQuestionTime: 15,
                 timerInterval: null,
                 timerPerQuestion: 15,
-                votingAllowed: false, // Track if voting is allowed
+                votingAllowed: false,
             };
         }
         rooms[roomName].players.push({ id: socket.id, name: playerName });
         io.to(roomName).emit('updatePlayers', rooms[roomName].players);
+        
+        // Check if the quiz has started and send the current question
+        if (rooms[roomName].quizStarted) {
+            const currentQuestion = rooms[roomName].quizQuestions[rooms[roomName].currentQuestionIndex];
+            io.to(socket.id).emit('quizStarted', currentQuestion);
+        }
+        
         if (socket.id === rooms[roomName].host) {
             io.to(socket.id).emit('hostAssigned');
         }
