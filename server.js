@@ -149,7 +149,7 @@ const io = socketIo(server);
 
 let rooms = {}; // Store room data
 
-app.use(express.static('public'));
+app.use(express.static('poll'));
 
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
