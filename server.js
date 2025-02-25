@@ -142,14 +142,24 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
+const cors = require('cors'); // latest change
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+// const io = socketIo(server);
+const io = socketIo(server, { // latest change
+    cors: {
+        origin: '*', // Replace with your frontend URL
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['my-custom-header'],
+        credentials: true // Allow credentials (cookies, authorization headers, etc.)
+    }
+});
 
 let rooms = {}; // Store room data
 
-app.use(express.static('public'));
+app.use(cors()); // latest change
+app.use(express.static('poll'));
 
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
