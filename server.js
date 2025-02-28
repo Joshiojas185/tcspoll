@@ -25,6 +25,14 @@ io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 
     socket.on('joinRoom', (roomName, playerName) => {
+
+        if (rooms[roomName] && !rooms[roomName].isAvailable) {
+           
+            io.to(socket.id).emit('roomNotAvailable', { message:
+                 "Thank you for joining the quiz! You will be redirected shortly.", image: 'thank-you.png' });
+            return; 
+        }
+
         socket.join(roomName);
         if (!rooms[roomName]) {
             rooms[roomName] = {
@@ -38,6 +46,7 @@ io.on('connection', (socket) => {
                 timerInterval: null,
                 timerPerQuestion: 15,
                 votingAllowed: false,
+                isAvailable: true
             };
         }
         rooms[roomName].players.push({ id: socket.id, name: playerName });
@@ -52,6 +61,12 @@ io.on('connection', (socket) => {
         if (socket.id === rooms[roomName].host) {
             io.to(socket.id).emit('hostAssigned');
         }
+    });
+
+    // Handles quiz locking
+    socket.on('lockQuiz', (roomName) => {
+        rooms[roomName].isAvailable = false; // Set the room as not available
+        io.to(roomName).emit('quizLocked', { message: "Thank you for joining the quiz! You will be redirected shortly.", image: 'thank-you.png' }); // Notify all users in the room
     });
 
     // Handle quiz file upload
