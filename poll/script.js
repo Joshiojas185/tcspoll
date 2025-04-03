@@ -1,4 +1,4 @@
-const socket = io('wss://tcspoll.onrender.com');
+const socket = io('wss://tcspoll-1.onrender.com/');
 
 const nameInput = document.getElementById('name-input');
 const roomInput = document.getElementById('room-input');
